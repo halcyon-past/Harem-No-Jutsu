@@ -19,7 +19,7 @@ cycler==0.10.0
 decorator==5.0.9
 discord==1.0.1
 discord-components==2.1.1
-discord.py==2.0.0a3575+g45d498c
+discord.py==1.7.3
 Django==3.2.9
 Eel==0.12.4
 Flask==2.0.1
