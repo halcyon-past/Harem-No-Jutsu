@@ -51,7 +51,6 @@ pyinstaller-hooks-contrib==2021.1
 PyMsgBox==1.0.9
 pyparsing==3.0.0
 pyperclip==1.8.2
-pypiwin32==223
 PyRect==0.1.4
 PyScreeze==0.1.27
 pytesseract==0.3.8
