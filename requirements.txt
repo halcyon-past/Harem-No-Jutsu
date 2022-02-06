@@ -3,7 +3,6 @@ altgraph==0.17
 asgiref==3.4.1
 async-timeout==3.0.1
 attrs==21.2.0
-auto-py-to-exe==2.9.0
 backcall==0.2.0
 bottle==0.12.19
 bottle-websocket==0.2.9
@@ -20,9 +19,7 @@ decorator==5.0.9
 discord==1.0.1
 discord-components==2.1.1
 discord.py==1.7.3
-Django==3.2.9
 Eel==0.12.4
-Flask==2.0.1
 future==0.18.2
 gevent==21.1.2
 gevent-websocket==0.10.1
@@ -35,18 +32,13 @@ ipython-genutils==0.2.0
 itsdangerous==2.0.1
 jedi==0.18.0
 Jinja2==3.0.1
-keyboard==0.13.5
 kiwisolver==1.3.2
 MarkupSafe==2.0.1
 matplotlib==3.4.3
 matplotlib-inline==0.1.2
 MouseInfo==0.1.3
 multidict==5.1.0
-mysql-connector==2.2.9
-mysql-connector-python==8.0.25
 networkx==2.6.3
-numpy==1.20.3
-opencv-python==4.5.2.54
 packaging==21.3
 pandas==1.3.1
 parso==0.8.2
@@ -56,7 +48,6 @@ Pillow==8.4.0
 py-cord==2.0.0b4
 PyAutoGUI==0.9.52
 pycparser==2.20
-pygame==2.0.1
 PyGetWindow==0.0.9
 Pygments==2.9.0
 pyinstaller==4.3
