@@ -1,3 +1,4 @@
+#from config_test import TOKEN
 import discord
 from discord.ui import Button,View
 from discord.ext import commands
@@ -271,7 +272,7 @@ async def on_ready():
     print(f"We have logged in as {bot}")
     await bot.change_presence(status = discord.Status.idle, activity=discord.Game("Type baka! ohayo to get started 👻"))
 
-@bot.command()
+@bot.command(name = "Ohayo",help = "This command starts your journey with this bot",aliases= ["OHAYO","start","Start","Begin","begin","ohayo"])
 async def ohayo(ctx):
     butt = Button(label = "Click Me For Help!!",style = discord.ButtonStyle.green, emoji = "👻")
     embed  = discord.Embed(title = "Ohayo!!", color = discord.Color.purple())
@@ -307,7 +308,7 @@ async def ohayo(ctx):
 
     msg = await ctx.send(embed = embed, view = view)
 
-@bot.command()
+@bot.command(name = "About",help = "This command tells you about the creator",aliases= ["info","ABOUT","about"])
 async def about(ctx):
     butt = Button(label = "Click Me To Invite",url = "https://rb.gy/8hxr4q", emoji = "🥵")
     embed  = discord.Embed(title = "Ohayo!!", color = discord.Color.green())
@@ -320,7 +321,7 @@ async def about(ctx):
 
     msg = await ctx.send(embed = embed, view = view)
 
-@bot.command()
+@bot.command(name = "Kill",help = "This commands let's you kill someone xD",aliases= ["murder","slay","Murder","Slay","KILL"])
 async def kill(ctx):
     embed  = discord.Embed(title = "Killing is Real", color = discord.Color.purple())
     pattern1 = r"<@!\d{14,}>"
@@ -342,7 +343,7 @@ async def kill(ctx):
         embed.set_image(url= f"https://c.tenor.com/0w3AFTfAiaoAAAAC/sukuna-itadori.gif")
         await ctx.send(embed = embed)  
 
-@bot.command()
+@bot.command(name = "Dance",help = "This let's you dance with the person you want to",aliases= ["DANCE","party","vibe","Party","Vibe","dance"])
 async def dance(ctx):
     embed  = discord.Embed(title = "Dance is life!", color = discord.Color.purple())
     pattern1 = r"<@!\d{14,}>"
@@ -363,7 +364,7 @@ async def dance(ctx):
         embed.set_image(url= f"{random.choice(dance2)}")
         await ctx.send(embed = embed)
         
-@bot.command()
+@bot.command(name = "Kiss",help = "This let's you kiss your crush with whom you can't even talk to",aliases= ["KISS","kiss","smooch","Smooch","muah","Muah"])
 async def kiss(ctx):
     embed  = discord.Embed(title = "Kiss me told you eyes!", color = discord.Color.purple())
     pattern1 = r"<@!\d{14,}>"
@@ -384,7 +385,7 @@ async def kiss(ctx):
         embed.set_image(url= f"{random.choice(kisses)}")
         await ctx.send(embed = embed)
 
-@bot.command()
+@bot.command(name = "Hug",help = "This let's you hug and forget the fact that u're adopted",aliases= ["HUG","grab","Grab","hug"])
 async def hug(ctx):
     embed  = discord.Embed(title = "The warmth", color = discord.Color.purple())
     pattern1 = r"<@!\d{14,}>"
@@ -405,7 +406,7 @@ async def hug(ctx):
         embed.set_image(url= f"{random.choice(hugs)}")
         await ctx.send(embed = embed)
 
-@bot.command()
+@bot.command(name = "Tickle",help = "This let's you tickle someone and forget u're depressed",aliases= ["TICKLE","katakutu","Katakutu","tickle"])
 async def tickle(ctx):
     embed  = discord.Embed(title = "Yamete!!", color = discord.Color.purple())
     pattern1 = r"<@!\d{14,}>"
@@ -426,7 +427,7 @@ async def tickle(ctx):
         embed.set_image(url= f"{random.choice(tickling)}")
         await ctx.send(embed = embed)
 
-@bot.command()
+@bot.command(name = "Pat",help = "This let's you pat someone and get brozoned",aliases= ["PAT","headpat","Headpat","pat"])
 async def pat(ctx):
     embed  = discord.Embed(title = "Heddo Patto", color = discord.Color.purple())
     pattern1 = r"<@!\d{14,}>"
@@ -447,7 +448,7 @@ async def pat(ctx):
         embed.set_image(url= f"{random.choice(pats)}")
         await ctx.send(embed = embed)
 
-@bot.command()
+@bot.command(name = "Bonk",help = "This let's you bonk the horny people",aliases= ["BONK","nohorny","NoHorny","bonk"])
 async def bonk(ctx):
     embed  = discord.Embed(title = "Boink", color = discord.Color.purple())
     pattern1 = r"<@!\d{14,}>"
@@ -468,7 +469,7 @@ async def bonk(ctx):
         embed.set_image(url= f"{random.choice(bonks)}")
         await ctx.send(embed = embed)
 
-@bot.command()
+@bot.command(name = "Cuddle",help = "This let's you cuddle virtually cuz in real lief you ain't getting it",aliases= ["CUDDLE","sleep","Sleep","cuddle"])
 async def cuddle(ctx):
     embed  = discord.Embed(title = "Comfyy!!", color = discord.Color.purple())
     pattern1 = r"<@!\d{14,}>"
@@ -489,7 +490,7 @@ async def cuddle(ctx):
         embed.set_image(url= f"{random.choice(cuddles)}")
         await ctx.send(embed = embed)
 
-@bot.command()
+@bot.command(name = "Smirk",help = "This let's you smirk at people (the only thing that u're good at)",aliases= ["SMIRK","HMMM","hmm","smirk"])
 async def smirk(ctx):
     embed  = discord.Embed(title = "Sussy Baka", color = discord.Color.purple())
     pattern1 = r"<@!\d{14,}>"
@@ -510,7 +511,7 @@ async def smirk(ctx):
         embed.set_image(url= f"{random.choice(smirking)}")
         await ctx.send(embed = embed)
 
-@bot.command()
+@bot.command(name = "Stare",help = "This let's you stare at people and make them believe that u're a creep",aliases= ["STARE","look","LOOK","stare"])
 async def stare(ctx):
     embed  = discord.Embed(title = "Sussy Baka", color = discord.Color.purple())
     pattern1 = r"<@!\d{14,}>"
@@ -531,7 +532,7 @@ async def stare(ctx):
         embed.set_image(url= f"{random.choice(stares)}")
         await ctx.send(embed = embed)
 
-@bot.command()
+@bot.command(name = "Punch",help = "Punch the people in their face if you don't like them",aliases= ["PUNCH","fist","FIST","punch"])
 async def punch(ctx):
     embed  = discord.Embed(title = "Thousand Years of death!!", color = discord.Color.purple())
     pattern1 = r"<@!\d{14,}>"
@@ -552,7 +553,7 @@ async def punch(ctx):
         embed.set_image(url= f"{random.choice(punches)}")
         await ctx.send(embed = embed)
 
-@bot.command()
+@bot.command(name = "Kick",help = "Now that's for nut busting moments",aliases= ["KICK","nutbreak","nutcrack","kick"])
 async def kick(ctx):
     embed  = discord.Embed(title = "Thousand Years of pain!!", color = discord.Color.purple())
     pattern1 = r"<@!\d{14,}>"
@@ -573,7 +574,7 @@ async def kick(ctx):
         embed.set_image(url= f"{random.choice(kicks)}")
         await ctx.send(embed = embed)
 
-@bot.command()
+@bot.command(name = "Slap",help = "This is what you do to perverts",aliases= ["SLAP","smack","Smack","slap"])
 async def slap(ctx):
     embed  = discord.Embed(title = "Ittai!!", color = discord.Color.purple())
     pattern1 = r"<@!\d{14,}>"
@@ -594,7 +595,7 @@ async def slap(ctx):
         embed.set_image(url= f"{random.choice(slaps)}")
         await ctx.send(embed = embed)
 
-@bot.command()
+@bot.command(name = "Cry",help = "Aww you wanna cry? here you go cry as much as you want!",aliases= ["CRY","breakdown","Breakdown","cry"])
 async def cry(ctx):
     embed  = discord.Embed(title = "If i die don't cry", color = discord.Color.purple())
     pattern1 = r"<@!\d{14,}>"
@@ -615,7 +616,7 @@ async def cry(ctx):
         embed.set_image(url= f"{random.choice(cries)}")
         await ctx.send(embed = embed)
 
-@bot.command()
+@bot.command(name = "Blush",help = "Well try using this when your crush is online",aliases= ["BLUSH","uwu","UwU","blush"])
 async def blush(ctx):
     embed  = discord.Embed(title = "UwU", color = discord.Color.purple())
     pattern1 = r"<@!\d{14,}>"
