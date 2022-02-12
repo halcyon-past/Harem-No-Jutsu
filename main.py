@@ -321,7 +321,7 @@ async def about(ctx):
 
     msg = await ctx.send(embed = embed, view = view)
 
-@bot.command(name = "Kill",help = "This commands let's you kill someone xD",aliases= ["murder","slay","Murder","Slay","KILL"])
+@bot.command(name = "Kill",help = "This commands let's you kill someone xD",aliases= ["murder","slay","Murder","Slay","KILL","kill"])
 async def kill(ctx):
     embed  = discord.Embed(title = "Killing is Real", color = discord.Color.purple())
     pattern1 = r"<@!\d{14,}>"
