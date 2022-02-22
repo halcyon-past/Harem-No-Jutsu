@@ -5,7 +5,7 @@ from discord.ext import commands
 import random
 import re
 
-bot = commands.Bot(command_prefix = "baka! ")
+bot = commands.Bot(command_prefix = ["baka! ","Baka! ","BAKA! ","baka!","Baka!","BAKA!")
 TOKEN = "ODQ4NjEzOTM3MzYwMTQyMzc2.YLPLUQ.ylC5vRK54tfHI4iYDiyoaA6UPhw"
 
 #names collection to be used in future
