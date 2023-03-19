@@ -1,4 +1,4 @@
-#from config_test import TOKEN
+import os
 import discord
 from discord.ui import Button,View
 from discord.ext import commands
@@ -6,7 +6,7 @@ import random
 import re
 
 bot = commands.Bot(command_prefix = ["baka! ","Baka! ","BAKA! ","baka!","Baka!","BAKA!"])
-TOKEN = "ODQ4NjEzOTM3MzYwMTQyMzc2.YLPLUQ.ylC5vRK54tfHI4iYDiyoaA6UPhw"
+TOKEN = os.getenv('TOKEN')
 
 #names collection to be used in future
 names = ["Elon Musk","Emma Watson","Bliie Eilish","Tom Holland","Scarlett Johanson","Hero Alom","Donal Trump","Narendra Modi","Mamta Bannerjee",
