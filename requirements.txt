@@ -17,7 +17,6 @@ cx-Freeze==6.6
 cx-Logging==3.0
 cycler==0.10.0
 decorator==5.0.9
-discord-components==2.1.1
 -e git://github.com/Rapptz/discord.py#egg=discord.py
 Eel==0.12.4
 future==0.18.2
