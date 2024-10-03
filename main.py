@@ -2,8 +2,10 @@ import os
 import discord
 from discord.ui import Button,View
 from discord.ext import commands
+import asyncio
 import random
 import re
+from response import get_response
 
 bot = commands.Bot(command_prefix = ["baka! ","Baka! ","BAKA! ","baka!","Baka!","BAKA!"])
 TOKEN = os.getenv('TOKEN')
@@ -636,5 +638,27 @@ async def blush(ctx):
         embed.add_field(name = "I swear i'm fine",value = f"{ctx.author.mention} started blushing randomly" )
         embed.set_image(url= f"{random.choice(blushing)}")
         await ctx.send(embed = embed)
+
+@bot.command(name = "aiAnime",help = "This command let's you chat with the bot",aliases= ["ai","chat","Chat","AI"])
+async def aiAnime(ctx):
+    await ctx.send("Hi! What would you like to chat about?")
+
+    # Wait for the user's message
+    try:
+        def check(msg):
+            return msg.author == ctx.author and msg.channel == ctx.channel
+        
+        user_message = await bot.wait_for('message', check=check, timeout=60)  # 60 seconds timeout
+
+        # Generate AI response
+        response = get_response(user_message.content)
+
+        # Send the AI's response
+        await ctx.send(response)
+
+    except asyncio.TimeoutError:
+        await ctx.send("You took too long to respond! Try again when you're ready.")
+
+    
 
 bot.run(TOKEN)
