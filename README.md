@@ -136,15 +136,19 @@ client.on('interactionCreate', async (interaction) => {
 });
 ```
 
-### 10. Test the Bot
+### 10. AI Implementation
+
+- Implement an AI API of your choice for example: `Groq.com`, `OpenAI`, `Gemini`, etc
+
+### 11. Test the Bot
 
 - Test locally: Use node index.js to start the bot and test various commands in your Discord server.
 
-### 11. Error Handling
+### 12. Error Handling
 
 - Add proper error handling: Ensure all commands handle errors gracefully, and log any issues that occur during bot interactions.
 
-### 12. Deployment
+### 13. Deployment
 
 - Deploy to a cloud service: Consider using platforms like Heroku, AWS, or DigitalOcean to host your bot permanently.
 - Setup automatic restart: Use tools like pm2 to keep the bot running and automatically restart it in case of crashes.
