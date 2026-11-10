@@ -5,52 +5,37 @@ module.exports = {
     once: true,
     async execute(client) {
         console.log(`${client.user.tag} is now online!`);
-        console.log("Enabling status...");
+        console.log('Enabling status...');
 
-        setInterval(async() => {
-            const servers = await client.guilds.cache.size;
-            const users = await client.guilds.cache.reduce(
-            (a, b) => a + b.memberCount,
-            0
+        const updateStatus = () => {
+            const servers = client.guilds.cache.size;
+            const users = client.guilds.cache.reduce(
+                (total, guild) => total + (guild.memberCount || 0),
+                0
             );
-        
-            let status = [
-            {
-              name: "a random game",
-              type: ActivityType.Playing,
-            },
-            {
-              name: `${servers} servers`,
-              type: ActivityType.Watching,
-            },
-            {
-              name: `${users} users`,
-              type: ActivityType.Listening,
-            }
+
+            const statuses = [
+                {
+                    name: 'Type baka! ohayo or /ohayo 👻',
+                    type: ActivityType.Playing,
+                },
+                {
+                    name: `${servers} servers`,
+                    type: ActivityType.Watching,
+                },
+                {
+                    name: `${users} users`,
+                    type: ActivityType.Listening,
+                },
             ];
-    
-            let random = Math.floor(Math.random() * status.length);
-            client.user.setActivity(status[random]);
-        }, 10000);
 
-        console.log("Sucessfully enabled status!");
+            const selected = statuses[Math.floor(Math.random() * statuses.length)];
+            client.user.setActivity(selected);
+        };
 
-        async function pickPresence () {
-            const option = Math.floor(Math.random() * statusArray.length);
+        updateStatus();
+        setInterval(updateStatus, 10000);
 
-            try {
-                await client.user.setPresence({
-                    activities: [
-                        {
-                            name: statusArray[option].content,
-                            type: statusArray[option].type,
-                        },
-                    ],
-                    status: statusArray[option].status
-                })
-            } catch (error) {
-                console.error(error);
-            }
-        }
+        console.log('Successfully enabled status!');
     },
 };

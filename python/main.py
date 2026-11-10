@@ -20,7 +20,6 @@ names = ["Elon Musk","Emma Watson","Bliie Eilish","Tom Holland","Scarlett Johans
 kills = ["https://i.pinimg.com/originals/cc/87/65/cc87656cf72979fb8ee01c3eebc5cdff.gif",
 "https://giffiles.alphacoders.com/207/207976.gif",
 "https://c.tenor.com/c9KEUCrTarUAAAAM/home-alone-macaulay-culkin.gif",
-"https://data.whicdn.com/images/159568456/original.gif",
 "https://c.tenor.com/1dtHuFICZF4AAAAC/kill-smack.gif",
 "https://gifimage.net/wp-content/uploads/2017/09/anime-kill-gif.gif",
 "https://thumbs.gfycat.com/ImpureShockedAfricanwildcat-size_restricted.gif",
@@ -653,11 +652,15 @@ async def aiAnime(ctx):
         # Generate AI response
         response = get_response(user_message.content)
 
-        # Send the AI's response
-        await ctx.send(response)
+        # Discord caps single messages at 2000 characters
+        for i in range(0, len(response), 2000):
+            await ctx.send(response[i:i + 2000])
 
     except asyncio.TimeoutError:
         await ctx.send("You took too long to respond! Try again when you're ready.")
+    except Exception as exc:
+        print(f"Error generating AI response: {exc}")
+        await ctx.send("Sorry, I couldn't generate a response right now.")
 
     
 

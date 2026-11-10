@@ -1,36 +1,51 @@
-const { Client, GatewayIntentBits, Collection } = require(`discord.js`);
+const { Client, GatewayIntentBits, Collection } = require('discord.js');
 const fs = require('fs');
-const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] }); 
-
-client.commands = new Collection();
-
 require('dotenv').config();
 
-const functions = fs.readdirSync("./src/functions").filter(file => file.endsWith(".js"));
-const eventFiles = fs.readdirSync("./src/events").filter(file => file.endsWith(".js"));
-const commandFolders = fs.readdirSync("./src/commands");
+const client = new Client({
+    intents: [
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.MessageContent,
+    ],
+});
 
-// error handling
-const process = require('node:process');
+client.commands = new Collection();
+client.aliases = new Collection();
 
+const functions = fs
+    .readdirSync('./src/functions')
+    .filter((file) => file.endsWith('.js'));
+const eventFiles = fs
+    .readdirSync('./src/events')
+    .filter((file) => file.endsWith('.js'));
+const commandFolders = fs.readdirSync('./src/commands');
+
+// Error handling
 process.on('unhandledRejection', (reason, promise) => {
-    console.log('Unhandled Rejection at:', promise, 'reason:', reason);
+    console.error('Unhandled Rejection at:', promise, 'reason:', reason);
 });
 
 process.on('uncaughtException', (err) => {
-    console.log("Uncaught Exception:", err);
+    console.error('Uncaught Exception:', err);
 });
 
 process.on('uncaughtExceptionMonitor', (err, origin) => {
-    console.log("Uncaught Exception Monitor:", err, origin);
+    console.error('Uncaught Exception Monitor:', err, origin);
 });
 
-// directory handling and login
+// Directory handling and login
 (async () => {
-    for (file of functions) {
+    for (const file of functions) {
         require(`./functions/${file}`)(client);
     }
-    client.handleEvents(eventFiles, "./src/events");
-    client.handleCommands(commandFolders, "./src/commands");
-    client.login(process.env.BOT_TOKEN);
+    client.handleEvents(eventFiles, './src/events');
+    await client.handleCommands(commandFolders, './src/commands');
+
+    const token = process.env.BOT_TOKEN || process.env.DISCORD_TOKEN;
+    if (!token) {
+        console.error('Missing BOT_TOKEN (or DISCORD_TOKEN) in environment.');
+        process.exit(1);
+    }
+    await client.login(token);
 })();
