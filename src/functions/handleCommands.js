@@ -1,40 +1,67 @@
-const { REST } = require("@discordjs/rest");
-const { Routes } = require('discord-api-types/v10');
+const { REST, Routes } = require('discord.js');
 const fs = require('fs');
-
-const clientId = process.env.BOT_ID; 
-const guildId = process.env.GUILD_ID; // not necessary, set to global by default
+const nodePath = require('path');
 
 module.exports = (client) => {
+    /** Register a single command module into client.commands and client.aliases. */
+    function registerCommand(command) {
+        if (!command?.data?.name) return;
+        const name = command.data.name.toLowerCase();
+        client.commands.set(name, command);
+        client.commandArray.push(command.data.toJSON());
+
+        if (Array.isArray(command.aliases)) {
+            for (const alias of command.aliases) {
+                client.aliases.set(alias.toLowerCase(), name);
+            }
+        }
+    }
+
     client.handleCommands = async (commandFolders, path) => {
         client.commandArray = [];
-        for (folder of commandFolders) {
-            const commandFiles = fs.readdirSync(`${path}/${folder}`).filter(file => file.endsWith('.js'));
+
+        for (const folder of commandFolders) {
+            const folderPath = nodePath.join(path, folder);
+            if (!fs.statSync(folderPath).isDirectory()) continue;
+
+            const commandFiles = fs
+                .readdirSync(folderPath)
+                .filter((file) => file.endsWith('.js'));
+
             for (const file of commandFiles) {
-                const command = require(`../commands/${folder}/${file}`);
-                client.commands.set(command.data.name, command);
-                client.commandArray.push(command.data.toJSON());
+                const exported = require(`../commands/${folder}/${file}`);
+                const items = Array.isArray(exported) ? exported : [exported];
+                for (const command of items) {
+                    registerCommand(command);
+                }
             }
         }
 
-        const rest = new REST({
-            version: '10'
-        }).setToken(process.env.BOT_TOKEN);
+        const token = process.env.BOT_TOKEN || process.env.DISCORD_TOKEN;
+        const clientId = process.env.BOT_ID;
+        const guildId = process.env.GUILD_ID;
 
-        (async () => {
-            try {
-                console.log('Started refreshing application (/) commands.');
+        if (!token || !clientId) {
+            console.warn(
+                'Skipping slash command registration: BOT_TOKEN (or DISCORD_TOKEN) and BOT_ID must be set.'
+            );
+            return;
+        }
 
-                await rest.put(
-                    Routes.applicationCommands(clientId), { // add guild id here if configuring for single guild
-                        body: client.commandArray
-                    },
-                );
+        const rest = new REST({ version: '10' }).setToken(token);
 
-                console.log('Successfully reloaded application (/) commands.');
-            } catch (error) {
-                console.error(error);
-            }
-        })();
+        try {
+            console.log('Started refreshing application (/) commands.');
+
+            const route = guildId
+                ? Routes.applicationGuildCommands(clientId, guildId)
+                : Routes.applicationCommands(clientId);
+
+            await rest.put(route, { body: client.commandArray });
+
+            console.log('Successfully reloaded application (/) commands.');
+        } catch (error) {
+            console.error('Failed to reload application (/) commands:', error);
+        }
     };
 };

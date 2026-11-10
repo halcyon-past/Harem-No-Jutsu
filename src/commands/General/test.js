@@ -5,7 +5,11 @@ module.exports = {
     .setName('test')
     .setDescription('Check if the bot is working'),
 
-    async execute (interaction) {
-        await interaction.reply({content: 'The bot is online and working!'});
-    }
-}
+    async execute(interaction) {
+        await interaction.reply({ content: 'The bot is online and working!' });
+    },
+
+    async executePrefix(message) {
+        await message.channel.send({ content: 'The bot is online and working!' });
+    },
+};

@@ -1,37 +1,52 @@
-from random import choice, randint
-import google.generativeai as genai
 import os
+from typing import Optional
+
 from dotenv import load_dotenv
+from google import genai
 
 load_dotenv()
-API_KEY: str = os.getenv('API_KEY')
 
-genai.configure(api_key=os.environ['API_KEY'])
-generation_config = {
-  "temperature": 1,
-  "top_p": 0.95,
-  "max_output_tokens": 8192,
-  "response_mime_type": "text/plain"
-}
+DEFAULT_MODEL = "gemini-3.8-flash"
+SYSTEM_INSTRUCTION = (
+    "You are a friendly, playful anime-themed Discord bot assistant. "
+    "Keep responses concise and under 2000 characters when possible."
+)
 
-def get_response(user_input: str) -> str:
-    lowered: str = user_input.lower()
+_client: Optional[genai.Client] = None
 
-    if lowered == '':
-        return 'Well, you\'re awfully silent...'
-    else:
-        model = genai.GenerativeModel(
-        model_name="gemini-1.5-flash",
-        generation_config=generation_config,
-        )
 
-        chat_session = model.start_chat(history=[
-            
-        ])
+def _get_client() -> genai.Client:
+    """Return a lazily initialized Gemini API client."""
+    global _client
+    if _client is None:
+        api_key = os.getenv("GEMINI_API_KEY") or os.getenv("API_KEY")
+        if not api_key:
+            raise ValueError(
+                "Missing Gemini API key: set GEMINI_API_KEY or API_KEY in the environment."
+            )
+        _client = genai.Client(api_key=api_key)
+    return _client
 
-        response = chat_session.send_message(lowered)
 
-        if response.text == '':
-            return 'I have no idea what you are talking about'
+def get_response(
+    user_input: str, previous_interaction_id: Optional[str] = None
+) -> str:
+    """Generate a reply for a user prompt via the Gemini Interactions API."""
+    if not user_input or not user_input.strip():
+        return "Well, you're awfully silent..."
 
-        return response.text
+    client = _get_client()
+    params = {
+        "model": DEFAULT_MODEL,
+        "input": user_input,
+        "system_instruction": SYSTEM_INSTRUCTION,
+    }
+    if previous_interaction_id:
+        params["previous_interaction_id"] = previous_interaction_id
+
+    interaction = client.interactions.create(**params)
+    text = (interaction.output_text or "").strip()
+    if not text:
+        return "I have no idea what you are talking about"
+
+    return text

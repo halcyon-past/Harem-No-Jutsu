@@ -54,6 +54,7 @@ PyRect==0.2.0
 PyScreeze==1.0.1
 pytesseract==0.3.13
 python-dateutil==2.9.0.post0
+python-dotenv>=1.0.1
 pyttsx3==2.98
 PyTweening==1.2.0
 pytz==2025.1
