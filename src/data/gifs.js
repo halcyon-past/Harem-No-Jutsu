@@ -35,7 +35,6 @@ const GIFS = {
         'https://i.pinimg.com/originals/cc/87/65/cc87656cf72979fb8ee01c3eebc5cdff.gif',
         'https://giffiles.alphacoders.com/207/207976.gif',
         'https://c.tenor.com/c9KEUCrTarUAAAAM/home-alone-macaulay-culkin.gif',
-        'https://data.whicdn.com/images/159568456/original.gif',
         'https://c.tenor.com/1dtHuFICZF4AAAAC/kill-smack.gif',
         'https://gifimage.net/wp-content/uploads/2017/09/anime-kill-gif.gif',
         'https://thumbs.gfycat.com/ImpureShockedAfricanwildcat-size_restricted.gif',
