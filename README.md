@@ -75,80 +75,33 @@ client.once('ready', () => {
 client.login(process.env.DISCORD_TOKEN);
 ```
 
-## Remaining To-Do
+## Implemented Features & Migration Status
 
-### 6. Add Commands
+### 6. Text (`baka!`) & Slash (`/`) Commands
+- [x] **General commands**: `ohayo` (`start`, `begin`), `about` (`info`), `help`, `ping`, `test`
+- [x] **Action GIF commands**: `kill`, `dance`, `kiss`, `hug`, `tickle`, `pat`, `bonk`, `cuddle`, `smirk`, `stare`, `punch`, `kick`, `slap`, `cry`, `blush` (supported via both `/command` and `baka! <command>`)
 
-- Add basic text commands like ohayo, about, etc.
-- Example:
-
-```javascript
-client.on('messageCreate', async (message) => {
-  if (message.content.toLowerCase().startsWith('baka! ohayo')) {
-    message.channel.send(\`Ohayo \${message.author}!\`);
-  }
-});
-```
-
-### 7. Create Embeds and Buttons
-
-- Create embed messages: Use MessageEmbed to create rich embeds with colors and titles.
-- Add interactive buttons: Use ActionRowBuilder and ButtonBuilder to allow users to interact with the bot.
+### 7. Embeds and Buttons
+- [x] Rich embeds with `EmbedBuilder`
+- [x] Interactive help button on `ohayo` and invite link button on `about` via `ActionRowBuilder` and `ButtonBuilder`
 
 ### 8. Sending Gifs
+- [x] Random GIF selection configured in `src/data/gifs.js` and handled via `src/utils/actionCommand.js`
 
-- Send random gifs based on commands: Load gifs from an array and randomly select one to send.
-
-Example:
-
-```javascript
-const kills = ['https://example.com/gif1.gif', 'https://example.com/gif2.gif'];
-
-client.on('messageCreate', (message) => {
-  if (message.content.startsWith('baka! kill')) {
-    const gif = kills[Math.floor(Math.random() * kills.length)];
-    message.channel.send({ content: \`\${message.author} killed someone!\`, files: [gif] });
-  }
-});
-```
-
-### 9. Add Slash Commands
-
-- Implement slash commands for better user experience. Use Discord’s slash command framework to register and handle commands.
-
-Example:
-
-```javascript
-client.on('ready', async () => {
-  const guild = client.guilds.cache.get('GUILD_ID');
-  await guild.commands.create({
-    name: 'ohayo',
-    description: 'Says ohayo!',
-  });
-});
-
-client.on('interactionCreate', async (interaction) => {
-  if (!interaction.isCommand()) return;
-
-  if (interaction.commandName === 'ohayo') {
-    await interaction.reply(\`Ohayo \${interaction.user.username}!\`);
-  }
-});
-```
+### 9. Slash Commands
+- [x] Registered via `src/functions/handleCommands.js` and handled in `src/events/interactionCreate.js`
 
 ### 10. AI Implementation
-
-- Implement an AI API of your choice for example: `Groq.com`, `OpenAI`, `Gemini`, etc
+- [x] **JavaScript (`src/utils/gemini.js`, `/ai` & `baka! ai`)**: Powered by `@google/genai` Interactions API using `gemini-3.8-flash`
+- [x] **Python (`python/response.py`)**: Migrated from deprecated `google-generativeai` (`gemini-1.5-flash`) to `google-genai` Interactions API (`gemini-3.8-flash`)
 
 ### 11. Test the Bot
-
-- Test locally: Use node index.js to start the bot and test various commands in your Discord server.
+- Run unit tests: `npm test`
+- Run the bot locally: `npm start` (set `BOT_TOKEN`, `BOT_ID`, `GUILD_ID` [optional], and `API_KEY` or `GEMINI_API_KEY` in `.env`)
 
 ### 12. Error Handling
-
-- Add proper error handling: Ensure all commands handle errors gracefully, and log any issues that occur during bot interactions.
+- [x] Interaction, prefix command, and process-level error handling
 
 ### 13. Deployment
-
 - Deploy to a cloud service: Consider using platforms like Heroku, AWS, or DigitalOcean to host your bot permanently.
-- Setup automatic restart: Use tools like pm2 to keep the bot running and automatically restart it in case of crashes.
+- Setup automatic restart: Use tools like `pm2` to keep the bot running and automatically restart it in case of crashes.

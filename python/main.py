@@ -653,11 +653,15 @@ async def aiAnime(ctx):
         # Generate AI response
         response = get_response(user_message.content)
 
-        # Send the AI's response
-        await ctx.send(response)
+        # Discord caps single messages at 2000 characters
+        for i in range(0, len(response), 2000):
+            await ctx.send(response[i:i + 2000])
 
     except asyncio.TimeoutError:
         await ctx.send("You took too long to respond! Try again when you're ready.")
+    except Exception as exc:
+        print(f"Error generating AI response: {exc}")
+        await ctx.send("Sorry, I couldn't generate a response right now.")
 
     
 

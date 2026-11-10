@@ -4,11 +4,13 @@
   "description": "Looking for contributions to make this Discord bot better as part of Hacktober Fest.",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/index.js",
+    "test": "node --test tests/*.test.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@google/genai": "^3.0.0",
     "discord.js": "^14.16.3",
     "dotenv": "^16.4.5"
   }
