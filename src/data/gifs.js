@@ -53,7 +53,6 @@ const GIFS = {
         'https://i.kym-cdn.com/photos/images/newsfeed/000/934/874/b59.gif',
         'https://c.tenor.com/mGodtR952CIAAAAC/kono-suba-dance.gif',
         'https://bestanimations.com/media/anime-dancing/1886969398anime-kawaii-cute-dance-animated-gif-image-7.gif',
-        'https://i0.wp.com/gifimage.net/wp-content/uploads/2017/06/anime-dancing-gif-8.gif?',
         'http://i.imgur.com/XCgUrhx.gif',
         'https://c.tenor.com/7r2Vr6KDS0cAAAAC/dancing-meme.gif',
         'https://media4.giphy.com/media/y5efFpqW5knlu/giphy.gif',
